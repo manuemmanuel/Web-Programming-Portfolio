@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manu Emmanuel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">ME</div>
+            <nav class="nav">
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div id="model-container"></div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="social-links">
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+                <h1 class="hero-name">
+                    <span class="name-part black animate-text">Manu</span>
+                    <span class="name-part white animate-text">Emmanuel</span>
+                </h1>
+            </div>
+            <div class="hero-right">
+                <div class="job-titles">
+                    <div class="job-title animate-text">// Designer</div>
+                    <div class="job-title animate-text">// Developer</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="intro" id="intro">
+        <div id="silk-background"></div>
+        <div class="container">
+            <div class="section-label">// Intro</div>
+            <div class="intro-content">
+                <h2 class="intro-headline">
+                    I'm a versatile <span class="highlight">designer</span> who <span class="highlight">partners with founders to turn ideas into</span> <span class="highlight">real products.</span> I focus on clear interfaces, sharp decisions, and fast execution.
+                </h2>
+                <p class="intro-text">
+                    Bringing your vision to life quickly and efficiently—whether it's branding, apps, or websites—I've got it covered, delivering smooth and effective solutions from start to finish.
+                </p>
+                <button class="cta-button" onclick="scrollToSection('projects')">See my Work</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-label">// Services</div>
+            <div class="services-grid">
+                <div class="service-card" data-number="01">
+                    <div class="service-number">01</div>
+                    <div class="service-details">
+                        <h3 class="service-title">Illustrations & Graphics</h3>
+                        <p class="service-description">
+                            Creative illustrations and graphic designs that bring ideas to life with visual storytelling.
+                        </p>
+                        <ul class="service-list">
+                            <li>Custom Illustrations</li>
+                            <li>Icon Design</li>
+                            <li>Digital Artwork</li>
+                            <li>Visual Storytelling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-card" data-number="02">
+                    <div class="service-number">02</div>
+                    <div class="service-details">
+                        <h3 class="service-title">UI/UX Design</h3>
+                        <p class="service-description">
+                            User-centered design that creates intuitive and engaging digital experiences.
+                        </p>
+                        <ul class="service-list">
+                            <li>User Research</li>
+                            <li>Wireframing</li>
+                            <li>Prototyping</li>
+                            <li>User Testing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-card" data-number="03">
+                    <div class="service-number">03</div>
+                    <div class="service-details">
+                        <h3 class="service-title">Development</h3>
+                        <p class="service-description">
+                            Clean, efficient code that brings designs to life with modern technologies.
+                        </p>
+                        <ul class="service-list">
+                            <li>Frontend Development</li>
+                            <li>Backend Development</li>
+                            <li>E-commerce</li>
+                            <li>Performance Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-card" data-number="04">
+                    <div class="service-number">04</div>
+                    <div class="service-details">
+                        <h3 class="service-title">Video Editing</h3>
+                        <p class="service-description">
+                            Professional video editing and motion graphics that captivate audiences and tell compelling stories.
+                        </p>
+                        <ul class="service-list">
+                            <li>Video Post-Production</li>
+                            <li>Motion Graphics</li>
+                            <li>Color Grading</li>
+                            <li>Visual Effects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-label">// Projects</div>
+            <h2 class="section-title">Featured Work</h2>
+            <div class="projects-grid">
+                <div class="project-card" data-project="1"></div>
+                <div class="project-card" data-project="2"></div>
+                <div class="project-card" data-project="3"></div>
+                <div class="project-card" data-project="4"></div>
+                <div class="project-card" data-project="5"></div>
+                <div class="project-card" data-project="6"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-label">// About</div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="about-description">
+                        With over 8 years of experience in design and development, I've helped countless businesses 
+                        establish their digital presence and achieve their goals. I believe in creating work that's 
+                        not just beautiful, but functional and purposeful.
+                    </p>
+                    <div class="skills">
+                        <h3>Skills & Tools</h3>
+                        <div class="skills-grid">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Adobe Creative Suite</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">WordPress</span>
+                            <span class="skill-tag">Shopify</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="assets/profile.jpg" alt="Manu Emmanuel - Designer & Developer" class="profile-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-label">// Contact</div>
+            <div class="contact-content">
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="contact-description">
+                    Ready to bring your ideas to life? I'm always excited to work on new projects and 
+                    collaborate with passionate people.
+                </p>
+                <button class="contact-button" id="openContactModal">
+                    <span>Get In Touch</span>
+                    <div class="button-glow"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Get In Touch</h3>
+                <button class="modal-close" id="closeContactModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <form class="contact-form" action="https://formspree.io/f/myyaenyj" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">
+                    <span>Send Message</span>
+                    <div class="button-glow"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="model-viewer.js"></script>
+    <script src="silk-background.js"></script>
+    <script src="canvas-reveal-effect.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

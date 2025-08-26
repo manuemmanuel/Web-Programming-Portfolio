@@ -6,34 +6,78 @@ body.setAttribute('data-theme', 'dark');
 document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.querySelector('.custom-cursor');
     
+    console.log('DOM Content Loaded');
+    console.log('Cursor element:', cursor);
+    console.log('Window width:', window.innerWidth);
+    
     if (cursor) {
-        // Update cursor position
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+        console.log('Custom cursor found, initializing...');
         
-        // Add hover effect for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .cta-button, .contact-button, .theme-toggle, .scroll-indicator, .service-card, .project-card');
+        // Check if we're on desktop (not mobile)
+        const isDesktop = window.innerWidth > 480;
+        console.log('Is desktop:', isDesktop);
         
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
+        if (isDesktop) {
+            // Make sure cursor is visible initially
+            cursor.style.opacity = '1';
+            cursor.style.display = 'block';
+            cursor.style.pointerEvents = 'none';
+            cursor.style.visibility = 'visible';
+            
+            // Update cursor position
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             });
             
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
+            // Add hover effect for interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .cta-button, .contact-button, .theme-toggle, .scroll-indicator, .service-card, .project-card, .mobile-menu-btn, .modal-close, .submit-button');
+            
+            console.log('Interactive elements found:', interactiveElements.length);
+            
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                    console.log('Hover effect added');
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                    console.log('Hover effect removed');
+                });
             });
-        });
+            
+            // Hide cursor when leaving window
+            document.addEventListener('mouseleave', () => {
+                cursor.style.opacity = '0';
+            });
+            
+            document.addEventListener('mouseenter', () => {
+                cursor.style.opacity = '1';
+            });
+            
+            console.log('Custom cursor initialized successfully');
+        } else {
+            console.log('Mobile device detected, hiding custom cursor');
+            cursor.style.display = 'none';
+        }
         
-        // Hide cursor when leaving window
-        document.addEventListener('mouseleave', () => {
-            cursor.style.opacity = '0';
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const newIsDesktop = window.innerWidth > 480;
+            console.log('Window resized, new width:', window.innerWidth, 'Is desktop:', newIsDesktop);
+            
+            if (newIsDesktop) {
+                cursor.style.display = 'block';
+                cursor.style.opacity = '1';
+            } else {
+                cursor.style.display = 'none';
+            }
         });
-        
-        document.addEventListener('mouseenter', () => {
-            cursor.style.opacity = '1';
-        });
+    } else {
+        console.warn('Custom cursor element not found');
+        // Fallback: show default cursor
+        document.body.style.cursor = 'auto';
     }
 });
 
@@ -294,7 +338,8 @@ window.addEventListener('load', () => {
                    cameraDistance: 25, // Back to original distance
                    rotationSpeed: 0.3,
                    scrollRotationMultiplier: 0.002, // Adjusted for extended scroll range
-                   autoRotate: true
+                   autoRotate: false,
+                   modelY: -115
                });
     }
     
@@ -438,6 +483,65 @@ window.addEventListener('scroll', () => {
 // });
 
 console.log('Portfolio website loaded successfully! 🚀');
+
+// Mobile Menu Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const nav = document.querySelector('.nav');
+    const navLinks = document.querySelectorAll('.nav a');
+    
+    if (mobileMenuBtn && nav) {
+        // Toggle mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            
+            // Update button icon
+            const svg = mobileMenuBtn.querySelector('svg');
+            if (nav.classList.contains('active')) {
+                svg.innerHTML = `
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+            } else {
+                svg.innerHTML = `
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const svg = mobileMenuBtn.querySelector('svg');
+                svg.innerHTML = `
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                nav.classList.remove('active');
+                const svg = mobileMenuBtn.querySelector('svg');
+                svg.innerHTML = `
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+            }
+        });
+        
+        // Close mobile menu on window resize (if screen becomes larger)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                nav.classList.remove('active');
+                const svg = mobileMenuBtn.querySelector('svg');
+                svg.innerHTML = `
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+            }
+        });
+    }
+});
 
 // Contact Modal Functionality
 document.addEventListener('DOMContentLoaded', () => {

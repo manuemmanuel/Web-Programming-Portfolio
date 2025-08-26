@@ -8,6 +8,8 @@ class ModelViewer {
             rotationSpeed: 0.5,
             scrollRotationMultiplier: 0.01,
             autoRotate: true,
+            modelY: -5,
+            modelScale: 80.0,
             ...options
         };
         
@@ -18,6 +20,8 @@ class ModelViewer {
         this.mixer = null;
         this.clock = null;
         this.animations = [];
+        this.scrollAngle = 0; // angle derived from scroll position
+        this.autoRotateAngle = 0; // accumulated auto-rotate angle
         
         this.init();
     }
@@ -128,8 +132,8 @@ class ModelViewer {
             });
             
             this.model = gltf.scene;
-            this.model.scale.setScalar(50.0); // Back to original scale
-            this.model.position.set(0, -5, 0); // Back to original position
+            this.model.scale.setScalar(this.options.modelScale); // Configurable initial scale
+            this.model.position.set(0, this.options.modelY, 0); // Configurable initial Y
             
             // Enable shadows for all meshes
             this.model.traverse((child) => {
@@ -168,6 +172,7 @@ class ModelViewer {
     setupScrollListener() {
         let scrollY = 0;
         let targetScrollY = 0;
+        const epsilon = 0.01;
         
         window.addEventListener('scroll', () => {
             targetScrollY = window.pageYOffset;
@@ -175,20 +180,17 @@ class ModelViewer {
         
         // Smooth scroll animation
         const updateScroll = () => {
-            scrollY += (targetScrollY - scrollY) * 0.1;
+            const deltaToTarget = targetScrollY - scrollY;
+            if (Math.abs(deltaToTarget) > epsilon) {
+                scrollY += deltaToTarget * 0.1;
+            } else {
+                scrollY = targetScrollY;
+            }
             
             if (this.model) {
-                // Rotate model based on scroll
-                this.model.rotation.y = scrollY * this.options.scrollRotationMultiplier;
-                
-                // Add some vertical movement (based on base position)
-                const baseY = -115; // Match the initial Y position
-                this.model.position.y = baseY + Math.sin(scrollY * 0.001) * 0.5;
-                
-                // Scale effect on scroll (based on base scale)
-                const baseScale = 80.0; // Match the initial scale
-                const scale = baseScale + Math.sin(scrollY * 0.002) * 2.0;
-                this.model.scale.setScalar(scale);
+                // Compute scroll-derived angle only; apply in animate()
+                this.scrollAngle = scrollY * this.options.scrollRotationMultiplier;
+                // Keep Y position and scale unchanged
             }
             
             requestAnimationFrame(updateScroll);
@@ -207,9 +209,12 @@ class ModelViewer {
             this.mixer.update(delta);
         }
         
-        // Auto-rotate if enabled
-        if (this.model && this.options.autoRotate) {
-            this.model.rotation.y += this.options.rotationSpeed * delta;
+        // Unified rotation: combine scroll-driven and auto-rotate
+        if (this.model) {
+            if (this.options.autoRotate) {
+                this.autoRotateAngle += this.options.rotationSpeed * delta;
+            }
+            this.model.rotation.y = this.scrollAngle + this.autoRotateAngle;
         }
         
         // Render
@@ -230,6 +235,26 @@ class ModelViewer {
         }
         if (this.container && this.renderer) {
             this.container.removeChild(this.renderer.domElement);
+        }
+    }
+
+    // Public API: update Y at runtime
+    setY(y) {
+        if (typeof y === 'number') {
+            this.options.modelY = y;
+            if (this.model) {
+                this.model.position.y = y;
+            }
+        }
+    }
+
+    // Public API: update uniform scale at runtime
+    setScale(scale) {
+        if (typeof scale === 'number') {
+            this.options.modelScale = scale;
+            if (this.model) {
+                this.model.scale.setScalar(scale);
+            }
         }
     }
 }
